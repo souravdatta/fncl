@@ -26,16 +26,16 @@
 ;;; which is used to filter the list. It is _NOT_ a lambda or function but
 ;;; a simple Lisp expression consisting of iteration variables used in the
 ;;; same loop or outer loops.
-;;; usage - (fn:for ((<var1> <list1> [<inclusion-condition>])
+;;; usage - (fncl:for ((<var1> <list1> [<inclusion-condition>])
 ;;;                  (<var2> <list2> [<inclusion-condition>)...)
 ;;;                        <expression containing <var1> <var2> ...>)
-;;; example -  (fn:for ((x '(1 2 3 4))
+;;; example -  (fncl:for ((x '(1 2 3 4))
 ;;;                            (y (cons x '(A B C D))))
 ;;;                           (cons x y)) ===  ((1 . 1) (1 . A) (1 . B) (1 . C) (1 . D) 
 ;;;                                             (2 . 2) (2 . A) (2 . B) (2 . C) (2 . D) 
 ;;;                                             (3 . 3) (3 . A) (3 . B) (3 . C) (3 . D) 
 ;;;                                             (4 . 4) (4 . A) (4 . B) (4 . C) (4 . D))
-;;; example -  (fn:for ((x '(1 2 3 4 5))
+;;; example -  (fncl:for ((x '(1 2 3 4 5))
 ;;;		        (y '(1 2 3 4 5) (< y x))
 ;;;		        (z '(1 2 3 4 5) (< z y)))
 ;;;		       (list x y z)) === ((3 2 1) (4 2 1) (4 3 1) (4 3 2) 
@@ -147,7 +147,7 @@
 ;;; $ <experimental>
 ;;; This macro makes it easy to compose several partial functions
 ;;; together with one final complete function call
-;;; Usage: (fn:compose (<partial-function-application-1>
+;;; Usage: (fncl:compose (<partial-function-application-1>
 ;;;                     <partial-function-application-2>
 ;;;                     ...
 ;;;                     <complete-function-application>))
@@ -155,11 +155,11 @@
 ;;; Note: The last argument need to be a complete function application
 ;;; Note: Not much error handling as of now
 ;;; Example:
-;;; (fn:$ ((append '(hello))
+;;; (fncl:$ ((append '(hello))
 ;;;        (mapcar #'first)
 ;;;        (list '(1 one) '(2 two)))) === (HELLO 1 2)
 ;;; Example:
-;;; (fn:$ ((list 1 2 3))) === (1 2 3)
+;;; (fncl:$ ((list 1 2 3))) === (1 2 3)
 (defun gen-funcalls (exprs)
   (if (not (listp exprs))
       (error "First argument needs to be a list of composable functions"))
