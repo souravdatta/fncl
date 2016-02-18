@@ -132,9 +132,10 @@
 ;;;               (marg1) ...)
 ;;;    body)
 ;;; For each list of arg list a separate nested function is created
+;;; and the end result is a zero arg funcallable object.
 (defun recursive-lambdas (args body)
   (cond
-    ((null args) `(progn ,@body))
+    ((null args) `(lambda () (progn ,@body)))
     ((not (consp (first args))) (error (format nil "~A is not list of arguments" (first args))))
     (t `#'(lambda ,(first args) ,(recursive-lambdas (rest args) body)))))
 
